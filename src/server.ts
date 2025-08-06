@@ -1,15 +1,15 @@
 import { Server } from "http";
 import app from "./app";
 import { connectWithDb } from "./app/database/db";
-const PORT = process.env.PORT || 5000;
+import { envVars } from "./app/configs/env";
 
 let server: Server;
 
 const startServer = async () => {
     try {
-        await connectWithDb("mongodb+srv://mongodb:mongodb@cluster0.zpodq7w.mongodb.net/courier_db?retryWrites=true&w=majority&appName=Cluster0")
+        await connectWithDb(envVars.DB_URL)
         // eslint-disable-next-line no-console
-        server = app.listen(PORT, () => console.log(`Server is running at port: ${PORT}`));
+        server = app.listen(envVars.PORT, () => console.log(`Server is running at port: ${envVars.PORT}`));
     } catch (err) {
         // eslint-disable-next-line no-console
         console.log(err);
